@@ -1,0 +1,54 @@
+import networkx as nx
+import simple_stack as Stack
+
+def dfs_topological_sort(graph):
+    """
+    Compute one topological sort of the given graph.
+    """
+    
+    # La solucion que retorna esta función es un diccionario de Python.
+    #   * La clave del diccionario es el número del nodo
+    #   * El valor es el orden topologico asignado a ese nodo
+    # 
+    # Por ejemplo, si tenemos el siguiente grafo dirigido con 3 vertices:
+    #                    3 ---> 2 ---> 1
+    # ... el orden topologico es:
+    #                El vértice 3 va en la primera posición
+    #                El vértice 2 en la segunda posición
+    #                El vértice 1 en la tercera posición
+    # Con lo que debemos devolver un diccionario con este contenido:
+    #     {1: 3, 2: 2, 3: 1}
+
+    N = graph.number_of_nodes()
+    
+    visibleNodes = set()  # En este ejercicio utilizamos un set
+                          # para recordar los nodos visibles
+    order = {}
+    seen = []
+    
+
+    # solve it here! ------------------------------------------------
+
+    def dfs_iterative(u):
+        nonlocal N
+        for i in graph.nodes():
+            if i not in order:
+                stack = Stack.Stack()
+                stack.push(i)
+                while not stack.isEmpty():
+                    current = stack.peek()
+                    if current not in seen:
+                        for j in graph.edges(current):
+                            if j[1] not in seen:
+                                stack.push(j[1])
+                        seen.append(current)
+                    else:
+                        stack.pop()
+                        if current not in order:
+                            order[current] = N
+                            N = N - 1                 
+
+        return
+
+    dfs_iterative(graph)
+    return order
