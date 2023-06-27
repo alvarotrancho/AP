@@ -1,0 +1,39 @@
+def cycle_crossover(parent1, parent2):
+    C = [0]*len(parent1)
+    ciclo = 1;
+    i = 0;
+    p = parent1[i]
+    m = parent2[i]
+    
+    for j in range(0,len(parent1)):
+        C[i] = ciclo
+        
+        if m == p:
+            ciclo = ciclo-1
+            i = buscar_siguiente(C)
+            p = parent1[i]
+            m = parent2[i]
+            
+        for x in range(0,len(parent1)):
+            if parent1[x] == m:
+                m = parent2[x]
+                C[x] = ciclo
+                
+                if m == p:
+                    ciclo = ciclo + 1
+                    i = buscar_siguiente(C)
+                    p = parent1[i]
+                    m = parent2[i]
+                    break
+    res = [0]*len(parent1)
+    for x in range(0,len(C)):
+        if C[x]%2 == 0:
+            res[x] = parent2[x]
+        else:
+            res[x] = parent1[x]
+    return res
+def buscar_siguiente(C):
+    for x in range(0,len(C)):
+        if C[x] == 0:
+            return C[x]
+        break
