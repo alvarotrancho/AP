@@ -1,0 +1,24 @@
+# Copia aqui tu solución del VPL Partition
+
+def partition(vector, left, right, pivot):
+   """
+   :param vector: numpy vector containing integer numbers
+   :param left: left index of our subarray
+   :param right: right index of our subarray
+   :param pivot: index to the pivot element
+   :return: index to the pivot on its definitive position
+   """
+   buffer = []
+   buffer.append(vector[pivot])
+   for i in range(left,right+1):
+      if i == pivot:
+         continue
+      if vector[i] >= vector[pivot]:
+         buffer.append(vector[i])
+      else:
+         buffer.insert(0,vector[i])
+   returner = vector[pivot]
+   for i in range(left,right+1):
+      vector[i] = buffer[i-left]
+
+   return buffer.index(returner)+left

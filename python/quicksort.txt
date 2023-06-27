@@ -1,0 +1,27 @@
+import random
+from partition import *
+
+# Programa aqui el algoritmo de Quick Sort. Utiliza este VPL para programar
+# una versión eligiendo privote fijo y otra con pivote aleatorio.
+
+def quick_sort(items):
+
+    def recursion(left,right):
+        # Pivote es el elemento de la izquierda
+        separation = partition(items,left,right,left)
+        if right-left > 3:
+            recursion(left,separation-1)
+            recursion(separation+1,right)
+        return
+
+    def recursion_random(left,right):
+        # Pivote es el elemento de la izquierda
+        separation = partition(items,left,right,random.randint(left,right))
+        if right-left > 3:
+            recursion(left,separation-1)
+            recursion(separation+1,right)
+        return
+
+    recursion(0,len(items)-1)
+
+    return
